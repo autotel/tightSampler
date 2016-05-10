@@ -11,6 +11,8 @@
   </head>
 	<body style="background-color:#ddd;margin:0;padding:0">
     <div class="contentContainer centered">
+			<div id="sampleManager">
+			</div>
       <div id="leftpanel" class="panel">
         <div class="panel leftalign">
           <h1>Webaudio Sampler</h1>
@@ -58,11 +60,15 @@
 
   </div>
 </body>
+<script src="audio/database.js"></script>
 <script src="js/mouse.js"></script>
 <script src="js/sequencer.js"></script>
 <script src="js/masterRack.js"></script>
 <script src="js/transport.js"></script>
+<script src="js/InstrumentItem.js"></script>
+<script src="js/InstrumentSelectorItem.js"></script>
 <script src="prefs/channels.js"></script>
+
 <script type="text/javascript">
 
 
@@ -105,7 +111,7 @@ nx.onload = function() {
   // nx.widgets["number1"].set({
   //   value: nx.widgets["metro1"].speed
   // })
-	
+
 
   var dials=[0];
   // function activate(){};
