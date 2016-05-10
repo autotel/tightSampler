@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<link rel="stylesheet" type="text/css" href="css/wapi.css">
+
+	<head>
+		<title>Autotel.MsCompose95</title>
+		<script type="text/javascript" src="libs/nexusUI.js"></script>
+		<script type="text/javascript" src="libs/Tone.js"></script>
+    <script   src="https://code.jquery.com/jquery-1.12.3.min.js"   integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ="   crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+	<body style="background-color:#ddd;margin:0;padding:0">
+    <div class="contentContainer centered">
+      <div id="leftpanel" class="panel">
+        <div class="panel leftalign">
+          <h1>Webaudio Sampler</h1>
+          <p>
+						if channel has bpm, timestretch
+						make channels more strong, save dom in them if not done so far
+						enable chaining and removing effects in the cannels and in the master, displaying their parameters
+						open custom samples
+
+						chaining sequencers in parallel and in sequence (h/v)
+
+						save the performance in JSON
+          </p>
+        </div>
+        <br>
+        <div id="sequencers" class="panel">
+        </div>
+        <br>
+        <a href="javascript:addMoreSequencers(15)">
+          <div id="adderButton" class="panel">
+            <h1>+</h1>
+          </div>
+        </a>
+      </div>
+      <br>
+      <div id="rightpanel" class="panel">
+        <div id="pane" class="panel leftalign" style="position:relative">
+          <h2>Mixer&amp;editor</h2>
+          <p>
+            Try channels with the round buttons, adjust volume and sample start &amp; end points.
+          </p>
+
+        </div>
+        <br>
+        <div class="panel">
+          <p>Bpm speed:
+            <canvas nx="metro" style="display:inline"></canvas>
+            <span style="display:inline-block"><canvas nx="number"></canvas></span>
+          </p>
+          <small>For advanced stuff, press f12. try channels and seqs</small>
+        </div>
+        <!-- <div style="width:100px; height:100px"></div> -->
+      </div>
+    <br>
+
+  </div>
+</body>
+<script src="js/mouse.js"></script>
+<script src="js/sequencer.js"></script>
+<script src="js/masterRack.js"></script>
+<script src="js/transport.js"></script>
+<script src="prefs/channels.js"></script>
+<script type="text/javascript">
+
+
+
+
+var sw="switch";
+var seqs=[];
+for(a=0; a<45;a++){
+  seqs[a]={};
+}
+$(document).ready(function(){
+  for(n in seqs){
+    seqs[n]=new Sequencer(n);
+  }
+})
+
+stepFunction=function(data){};
+
+focusChannel=function(id){
+  $(".mixerPanel").removeClass("onFocus");
+  $("#editorPanel_"+id).addClass("onFocus");
+}
+
+
+function addMoreSequencers(count){
+  newLength=seqs.length+count;
+  for(a=seqs.length;a<newLength;a++){
+    seqs.push(new Sequencer(a));
+  }
+}
+
+
+
+nx.onload = function() {
+  createSamplers();
+  nx.colorize("accent", "#0CC");
+  nx.globalWidgets=false;
+
+  // nx.widgets["metro1"].speed=64;
+  // nx.widgets["number1"].set({
+  //   value: nx.widgets["metro1"].speed
+  // })
+	
+
+  var dials=[0];
+  // function activate(){};
+  transportStart();
+};
+$(document).ready(function(){
+  style='background:rgb(20, 116, 210); color: #FFF';
+  console.log("%c fork me on github:", style);
+  console.log("%chttps://github.com/autotel/MsCompose95", style);
+  console.log("%c things to try here:", style);
+  console.log("%c -delay effect:", style);
+  console.log("%c   -masterDelay.wet.value", style);
+  console.log("%c   -masterDelay.feedback.value", style);
+  console.log("%c   -masterDelay.delayTime.value", style);
+  console.log("%c   -others, as specified in http://tonejs.org/docs/#FeedbackDelay", style);
+  console.log("%c -seqs:", style);
+  console.log("%c   -seqs[n].len", style);
+  console.log("%c   -seqs[n].evry", style);
+  console.log("%c   -seqs[n].alive", style);
+  console.log("%c   -seqs[n].pos", style);
+  console.log("%c   -seqs[n].channel=channels[n]", style);
+  console.log("%c -effects patching, as specified in http://tonejs.org/docs", style);
+  console.log("%c   var crusher = new Tone.BitCrusher(4).toMaster(); masterDelay.disconnect(Tone.Master); masterDelay.connect(crusher); ", style);
+
+
+});
+</script>
+</html>
